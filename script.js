@@ -4,9 +4,6 @@ console.log("Script loading");
 var counter = 0;
 var gameStage = 0;
 var h2;
-////my options variables!!!
-// if gameStage/ level is 0, pic to guess is buildingArray[gameStage].name => pyramid
-// if gameStage/ level is 1, pic to guess is buildingArray[gameStage].name => taj mahal
 
 var buildingArray = [
 {
@@ -31,24 +28,7 @@ var buildingArray = [
     third: "images/petra4.jpg"
 }
 ];
-// var img = document.createElement("img");
-// img.src = buildingArray[0].image;
 
-// document.body.appendChild(img);
-
-////First output function(to display images for user to guess || when user succeed guessing, display the full pic)
-
-// var display = function(data){
-//         var output = document.querySelector(#output);
-//         output.innerText = data;
-//     }
-
-////Second output function(to display hints when user enter a wrong answer || congratulate user when enter a correct answer)
-
-// var display2 = function( data ){
-//         var output2 = document.querySelector(#output2);
-//         output2.innerText = data;
-//     }
 
 
 ////create h1 for the title of the game
@@ -61,15 +41,6 @@ var title = function(){
     document.body.prepend(h1);
 
 }
-
-////create h2 for the stage
-// var h2;
-// var stage = function(){
-//     h2 = document.createElement("h2");
-
-
-// }
-
 
 ////create output for user to see the images(display) and hint(display2)
 
@@ -140,48 +111,18 @@ var createInput = function(){
 }
 
 ////player answers for pyramid
-var firstEnter = function(event){
+var enter = function(event){
     //console.log(event)
     // if(gameStage === 0){
         if(event.keyCode === 13){
             var userInput = event.target.value;
             console.log("Please Enter Function");
-            firstAnswer(userInput);
+            answer(userInput);
         }
-    // }
-    // else if(gameStage === 1){
-    //     if(event.keyCode === 13){
-    //         var userInput = event.target.value;
-    //         console.log("Please Enter Function");
-    //         secondAnswer(userInput);
-    //     }
-    // }
-
 }
 
-////player  answer for taj mahal
-
-// var secondEnter = function(event){
-//     //console.log(event)
-//     // if(gameStage === 0){
-//         if(event.keyCode === 13){
-//             var userInput = event.target.value;
-//             console.log("Please Enter Function");
-//             secondAnswer(userInput);
-//         }
-    // }
-    // else if(gameStage === 1){
-    //     if(event.keyCode === 13){
-    //         var userInput = event.target.value;
-    //         console.log("Please Enter Function");
-    //         secondAnswer(userInput);
-    //     }
-    // }
-
-// }
-
 ////function for player to answer
-var firstAnswer = function(userInput){
+var answer = function(userInput){
     console.log("Counter: " + counter);
     // cleared false
     var clear = false;
@@ -215,42 +156,7 @@ var firstAnswer = function(userInput){
         console.log("You lose!")
         document.querySelector('#input').removeEventListener("keydown",firstEnter);
     };
-        // if(clear === true){
-        //     startGame();
-        //     break;
-        // };
-    // if cleared true, startgame()
 }
-
-////function for taj mahal
-// var secondAnswer = function(userInput){
-//     console.log("Counter: " + counter);
-//     for(let i = 0; i < buildingArray.length; i++){
-//         if (userInput === buildingArray[i].name){
-//             console.log("You got it correct");
-//             createWinOutputPic(buildingArray[i].image);
-//             document.querySelector('#input').removeEventListener("keydown",secondEnter);
-//         }
-//         else if(counter < 2){
-//             if(counter === 0){
-//                 console.log("You got it wrong!");
-//                 createOutputHint1(buildingArray[i].first);
-//                 counter += 1;
-//                 break;
-//             }
-//             else if(counter === 1){
-//                 counter += 1;
-//                 console.log("You got it wrong!");
-//                 createOutputHint3(buildingArray[i].second);
-//                 break;
-//             }
-//         }
-//         else{
-//             console.log("You lose!")
-//             document.querySelector('#input').removeEventListener("keydown",secondEnter);
-//         }
-//     }
-// }
 
 ////clear output when guess the correct word
 var clearOutput = function(){
@@ -287,66 +193,18 @@ var clearOutput = function(){
         document.querySelector(".containerright").removeChild(hint3);
         h2.innerText = "Stage " + (gameStage+1);
     }
-    // if document.querySelector("outputHint1Pic") is not null, means it's present, hence remove it
-
-
-    // if outputHint3Pic is not null, means it's present, hence remove it
-
-
-    // if(counter === 0){
-    //     document.querySelector(".container").remove(outputWinPic);
-    //     console.log("Hint1 pic reset");
-    // }
-    // else if (counter === 1){
-    //     document.querySelector(".container").remove(outputWinPic);
-    //     console.log("Hint1 pic reset");
-    //     document.querySelector(".containerleft").removeChild(outputHint1Pic);
-    //     console.log("Hint3 pic reset");
-    // }
-    // else if(counter === 2){
-    //     document.querySelector(".container").remove(outputWinPic);
-    //     console.log("win pic reset");
-    //     document.querySelector(".containerleft").removeChild(outputHint1Pic);
-    //     console.log("Hint3 pic reset");
-    //     document.querySelector(".containerright").removeChild(outputHint3Pic)
-    //     console.log("hint1 pic reset");
-    // }
 }
 
 var startGame = function(){
-    // if (gameStage === 0){
         createOutputHint2(buildingArray[gameStage].image);
         console.log("Showed the first hint")
         // createOutput();
-        document.querySelector('#input').addEventListener("keydown",firstEnter);
+        document.querySelector('#input').addEventListener("keydown",enter);
         // document.querySelector('#input').removeEventListener("keydown",enterFunction);
         console.log("stage no.: " + gameStage);
-    // }
-    // else if(gameStage === 1){
-    //     createOutputHint2(buildingArray[gameStage].image);
-    //     // createOutput();
-    //     document.querySelector('#input').addEventListener("keydown",firstEnter);
-    //     // document.querySelector('#input').removeEventListener("keydown",enterFunction);
-    //     // gameStage++;
-    //     console.log("stage no.: " + gameStage);
-    // }
-    // else if(gameStage === 2){
-    //     createOutputHint2(buildingArray[gameStage].image);
-    //     // createOutput();
-    //     document.querySelector('#input').addEventListener("keydown",firstEnter);
-    //     // document.querySelector('#input').removeEventListener("keydown",enterFunction);
-    //     // gameStage++;
-    //     console.log("stage no.: " + gameStage);
-    // }
+
 }
 
-// title();
-// createOutputHint2(buildingArray[0].image);
-// createInput();
-// // createOutput();
-// document.querySelector('#input').addEventListener("keydown",enterFunction);
-// // document.querySelector('#input').removeEventListener("keydown",enterFunction);
-// stage();
 title();
 createInput();
 startGame();
