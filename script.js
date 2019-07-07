@@ -4,7 +4,8 @@ console.log("Script loading");
 var counter = 0;
 var gameStage = 0;
 var h2;
-var imageClear = "images/stageclear.jpg"
+var clearImage = "images/stageclear.jpg";
+var wrongImage = "images/wrong.png";
 var buildingArray = [
 {
     name: "Pyramid",
@@ -124,8 +125,22 @@ var enter = function(event){
 ////when player wins the stage
 var winStage = function(){
     console.log("You win this stage");
-    createWinOutputPic(imageClear);
+    createWinOutputPic(clearImage);
 }
+
+////when player got the ans wrong
+var wrongStage = function(){
+    console.log("You got it wrong!");
+    createWinOutputPic(wrongImage);
+}
+
+////remove wrong pic
+var clearWrong = function(){
+    var clear = document.getElementById("outputpic");
+    document.querySelector(".container").removeChild(clear);
+}
+
+
 
 ////function for player to answer
 var answer = function(userInput){
@@ -142,20 +157,32 @@ var answer = function(userInput){
         setTimeout(winStage, 2000);
         setTimeout(clearOutput, 3000);
         setTimeout(startGame, 4000);
+        setTimeout(function() {
+                counter = 0;
+            },4000);
             // console.log("Win pic reset");
             console.log("Please start the next game!!!!!!!!!");
 
     }
     else if(counter < 2){
         if(counter === 0){
-            console.log("You got it wrong!");
-            createOutputHint1(buildingArray[gameStage].first);
+            setTimeout(wrongStage,1000);
+            setTimeout(clearWrong,2000);
+            //settimeout
+            setTimeout(function() {
+                createOutputHint1(buildingArray[gameStage].second);
+            },3000);
+            // createOutputHint1(buildingArray[gameStage].second);
             counter += 1;
         }
         else if(counter === 1){
+            setTimeout(wrongStage, 1000);
+            setTimeout(clearWrong,2000);
+            //settimeout
+            setTimeout(function() {
+                createOutputHint3(buildingArray[gameStage].third);
+            },3000);
             counter += 1;
-            console.log("You got it wrong!");
-            createOutputHint3(buildingArray[gameStage].second);
         }
     }
     else{
@@ -170,6 +197,7 @@ var clearOutput = function(){
     var hint2;
     var hint1;
     var hint3;
+    var clear;
     console.log("clearing!");
     // no matter what, you'll have to remove outputWinPic
     if (counter === 0){
@@ -177,6 +205,9 @@ var clearOutput = function(){
         document.querySelector(".container").removeChild(answerPic);
         hint2 = document.getElementById("hint2");
         document.querySelector(".containercenter").removeChild(hint2);
+        clear = document.getElementById("input");
+        document.querySelector(".containerbtm").removeChild(clear);
+
     }
     else if(counter === 1){
         answerPic = document.getElementById("outputpic");
@@ -185,7 +216,8 @@ var clearOutput = function(){
         document.querySelector(".containercenter").removeChild(hint2);
         hint1 = document.getElementById("hint1");
         document.querySelector(".containerleft").removeChild(hint1);
-
+        clear = document.getElementById("input");
+        document.querySelector(".containerbtm").removeChild(clear);
     }
     else if(counter === 2){
         answerPic = document.getElementById("outputpic");
@@ -196,13 +228,16 @@ var clearOutput = function(){
         document.querySelector(".containerleft").removeChild(hint1);
         hint3 = document.getElementById("hint3");
         document.querySelector(".containerright").removeChild(hint3);
+        clear = document.getElementById("input");
+        document.querySelector(".containerbtm").removeChild(clear);
         }
 }
 
 var startGame = function(){
     if (gameStage < buildingArray.length){
-        createOutputHint2(buildingArray[gameStage].image);
+        createOutputHint2(buildingArray[gameStage].first);
         console.log("Showed the first hint")
+        createInput();
         // createOutput();
         document.querySelector('#input').addEventListener("keydown",enter);
         // document.querySelector('#input').removeEventListener("keydown",enterFunction);
@@ -216,5 +251,4 @@ var startGame = function(){
 }
 
 title();
-createInput();
 startGame();
