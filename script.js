@@ -154,7 +154,7 @@ var answer = function(userInput){
     }
     else{
         console.log("You lose!")
-        document.querySelector('#input').removeEventListener("keydown",firstEnter);
+        document.querySelector('#input').removeEventListener("keydown", enter);
     };
 }
 
@@ -171,7 +171,7 @@ var clearOutput = function(){
         document.querySelector(".container").removeChild(answerPic);
         hint2 = document.getElementById("hint2");
         document.querySelector(".containercenter").removeChild(hint2);
-        h2.innerText = "Stage " + (gameStage+1);
+        // h2.innerText = "Stage " + (gameStage+1);
     }
     else if(counter === 1){
         answerPic = document.getElementById("outputpic");
@@ -180,7 +180,7 @@ var clearOutput = function(){
         document.querySelector(".containercenter").removeChild(hint2);
         hint1 = document.getElementById("hint1");
         document.querySelector(".containerleft").removeChild(hint1);
-        h2.innerText = "Stage " + (gameStage+1);
+
     }
     else if(counter === 2){
         answerPic = document.getElementById("outputpic");
@@ -191,18 +191,24 @@ var clearOutput = function(){
         document.querySelector(".containerleft").removeChild(hint1);
         hint3 = document.getElementById("hint3");
         document.querySelector(".containerright").removeChild(hint3);
-        h2.innerText = "Stage " + (gameStage+1);
+        // h2.innerText = "Stage " + (gameStage+1);
     }
 }
 
 var startGame = function(){
+    if (gameStage < buildingArray.length){
         createOutputHint2(buildingArray[gameStage].image);
         console.log("Showed the first hint")
         // createOutput();
         document.querySelector('#input').addEventListener("keydown",enter);
         // document.querySelector('#input').removeEventListener("keydown",enterFunction);
+        h2.innerText = "Stage " + (gameStage+1);
         console.log("stage no.: " + gameStage);
-
+    }
+    else{
+        console.log("Youve won the game");
+        document.querySelector('#input').removeEventListener("keydown", enter);
+    }
 }
 
 title();
