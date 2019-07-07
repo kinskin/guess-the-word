@@ -4,7 +4,7 @@ console.log("Script loading");
 var counter = 0;
 var gameStage = 0;
 var h2;
-
+var imageClear = "images/stageclear.jpg"
 var buildingArray = [
 {
     name: "Pyramid",
@@ -121,6 +121,12 @@ var enter = function(event){
         }
 }
 
+////when player wins the stage
+var winStage = function(){
+    console.log("You win this stage");
+    createWinOutputPic(imageClear);
+}
+
 ////function for player to answer
 var answer = function(userInput){
     console.log("Counter: " + counter);
@@ -133,10 +139,10 @@ var answer = function(userInput){
         gameStage ++;
         console.log("load next stage no.: " + gameStage);
         setTimeout(clearOutput, 1000);
-        setTimeout(startGame, 2000);
-
-            // document.getElementById("hint2").src = buildingArray[gameStage].image;
-            console.log("Win pic reset");
+        setTimeout(winStage, 2000);
+        setTimeout(clearOutput, 3000);
+        setTimeout(startGame, 4000);
+            // console.log("Win pic reset");
             console.log("Please start the next game!!!!!!!!!");
 
     }
@@ -171,7 +177,6 @@ var clearOutput = function(){
         document.querySelector(".container").removeChild(answerPic);
         hint2 = document.getElementById("hint2");
         document.querySelector(".containercenter").removeChild(hint2);
-        // h2.innerText = "Stage " + (gameStage+1);
     }
     else if(counter === 1){
         answerPic = document.getElementById("outputpic");
@@ -191,8 +196,7 @@ var clearOutput = function(){
         document.querySelector(".containerleft").removeChild(hint1);
         hint3 = document.getElementById("hint3");
         document.querySelector(".containerright").removeChild(hint3);
-        // h2.innerText = "Stage " + (gameStage+1);
-    }
+        }
 }
 
 var startGame = function(){
