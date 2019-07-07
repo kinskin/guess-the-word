@@ -5,8 +5,6 @@ var counter = 0;
 var gameStage = 0;
 var h2;
 ////my options variables!!!
-var numberStage = ["1","2"];
-
 // if gameStage/ level is 0, pic to guess is buildingArray[gameStage].name => pyramid
 // if gameStage/ level is 1, pic to guess is buildingArray[gameStage].name => taj mahal
 
@@ -16,20 +14,21 @@ var buildingArray = [
     image: "images/pyramid.jpg",
     first: "images/pyramid2.jpg",
     second:"images/pyramid3.jpg",
-    third:"images/pyramid4.jpg",
-    location:"Egypt",
-    continent:"Africa",
-    clear: " "
+    third:"images/pyramid4.jpg"
 },
 {
     name: "Taj Mahal",
     image: "images/tajmahal.jpeg",
     first: "images/tajmahal2.jpg",
     second: "images/tajmahal3.jpg",
-    third: "images/tajmahal4.jpg",
-    location: "India",
-    continent: "Asia",
-    clear: " "
+    third: "images/tajmahal4.jpg"
+},
+{
+    name: "Petra",
+    image: "images/petra.jpg",
+    first: "images/petra2.jpg",
+    second: "images/petra3.jpg",
+    third: "images/petra4.jpg"
 }
 ];
 // var img = document.createElement("img");
@@ -162,14 +161,14 @@ var firstEnter = function(event){
 
 ////player  answer for taj mahal
 
-var secondEnter = function(event){
-    //console.log(event)
-    // if(gameStage === 0){
-        if(event.keyCode === 13){
-            var userInput = event.target.value;
-            console.log("Please Enter Function");
-            secondAnswer(userInput);
-        }
+// var secondEnter = function(event){
+//     //console.log(event)
+//     // if(gameStage === 0){
+//         if(event.keyCode === 13){
+//             var userInput = event.target.value;
+//             console.log("Please Enter Function");
+//             secondAnswer(userInput);
+//         }
     // }
     // else if(gameStage === 1){
     //     if(event.keyCode === 13){
@@ -179,7 +178,7 @@ var secondEnter = function(event){
     //     }
     // }
 
-}
+// }
 
 ////function for player to answer
 var firstAnswer = function(userInput){
@@ -288,9 +287,6 @@ var clearOutput = function(){
         document.querySelector(".containerright").removeChild(hint3);
         h2.innerText = "Stage " + (gameStage+1);
     }
-
-
-
     // if document.querySelector("outputHint1Pic") is not null, means it's present, hence remove it
 
 
@@ -318,22 +314,30 @@ var clearOutput = function(){
 }
 
 var startGame = function(){
-    if (gameStage === 0){
+    // if (gameStage === 0){
         createOutputHint2(buildingArray[gameStage].image);
         console.log("Showed the first hint")
         // createOutput();
         document.querySelector('#input').addEventListener("keydown",firstEnter);
         // document.querySelector('#input').removeEventListener("keydown",enterFunction);
         console.log("stage no.: " + gameStage);
-    }
-    else if(gameStage === 1){
-        createOutputHint2(buildingArray[gameStage].image);
-        // createOutput();
-        document.querySelector('#input').addEventListener("keydown",firstEnter);
-        // document.querySelector('#input').removeEventListener("keydown",enterFunction);
-        // gameStage++;
-        console.log("stage no.: " + gameStage);
-    }
+    // }
+    // else if(gameStage === 1){
+    //     createOutputHint2(buildingArray[gameStage].image);
+    //     // createOutput();
+    //     document.querySelector('#input').addEventListener("keydown",firstEnter);
+    //     // document.querySelector('#input').removeEventListener("keydown",enterFunction);
+    //     // gameStage++;
+    //     console.log("stage no.: " + gameStage);
+    // }
+    // else if(gameStage === 2){
+    //     createOutputHint2(buildingArray[gameStage].image);
+    //     // createOutput();
+    //     document.querySelector('#input').addEventListener("keydown",firstEnter);
+    //     // document.querySelector('#input').removeEventListener("keydown",enterFunction);
+    //     // gameStage++;
+    //     console.log("stage no.: " + gameStage);
+    // }
 }
 
 // title();
