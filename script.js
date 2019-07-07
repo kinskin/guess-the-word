@@ -3,7 +3,7 @@ console.log("Script loading");
 // var outputPic;
 var counter = 0;
 var gameStage = 0;
-
+var h2;
 ////my options variables!!!
 var numberStage = ["1","2"];
 
@@ -56,7 +56,7 @@ var buildingArray = [
 var title = function(){
     var h1 = document.createElement("h1");
     h1.innerText = "Guess The Building";
-    var h2 = document.createElement("h2");
+    h2 = document.createElement("h2");
     h2.innerText = "Stage " + (gameStage+1);
     document.body.prepend(h2);
     document.body.prepend(h1);
@@ -266,6 +266,7 @@ var clearOutput = function(){
         document.querySelector(".container").removeChild(answerPic);
         hint2 = document.getElementById("hint2");
         document.querySelector(".containercenter").removeChild(hint2);
+        h2.innerText = "Stage " + (gameStage+1);
     }
     else if(counter === 1){
         answerPic = document.getElementById("outputpic");
@@ -274,6 +275,7 @@ var clearOutput = function(){
         document.querySelector(".containercenter").removeChild(hint2);
         hint1 = document.getElementById("hint1");
         document.querySelector(".containerleft").removeChild(hint1);
+        h2.innerText = "Stage " + (gameStage+1);
     }
     else if(counter === 2){
         answerPic = document.getElementById("outputpic");
@@ -283,7 +285,8 @@ var clearOutput = function(){
         hint1 = document.getElementById("hint1");
         document.querySelector(".containerleft").removeChild(hint1);
         hint3 = document.getElementById("hint3");
-        document.querySelector(".containerright").removeChild(hint3)
+        document.querySelector(".containerright").removeChild(hint3);
+        h2.innerText = "Stage " + (gameStage+1);
     }
 
 
