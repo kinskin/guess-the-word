@@ -108,10 +108,14 @@ var createInput = function(){
     var inputBox = document.createElement("input");
     inputBox.setAttribute("id","input");
     // inputBox.setAttribute("autofocus")
-    inputBox.style.border = "2px solid black";
-    inputBox.style.height = "100px";
-    inputBox.style.width = "600px";
-    inputBox.style.margin = "10px";
+    inputBox.style.border = "1px solid black";
+    inputBox.style.borderRadius = "50%";
+    inputBox.style.outline = "none";
+    inputBox.style.height = "80px";
+    inputBox.style.width = "300px";
+    inputBox.style.margin = "20px";
+    inputBox.style.fontSize = "30px";
+    inputBox.style.textAlign = "center";
     inputBox.textContent = "Your Answer";
     document.querySelector(".containerbtm").appendChild(inputBox)
 }
@@ -257,10 +261,10 @@ var answer = function(userInput){
         setTimeout(clearOutput, 1000);
         setTimeout(clearStage, 2000);
         setTimeout(clearOutput, 3000);
-        setTimeout(startGame, 4000);
+        setTimeout(startGame, 3000);
         setTimeout(function() {
                 counter = 0;
-            },4000);
+            },3000);
         // setTimeout(function() {
         //         stageCounter = 0;
         //     },4000);
