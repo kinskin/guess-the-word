@@ -1,3 +1,8 @@
+body {
+  background-image: url("images/background.jpg");
+  background-size: cover;
+}
+
 h1{
 	text-align: center;
 }
@@ -6,4 +11,9 @@ h2{
 }
 .container{
 	text-align: center;
+	background-color: transparent;
 }
+
+/*.testing {
+	background-color: transparent;
+}*/

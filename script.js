@@ -4,8 +4,10 @@ console.log("Script loading");
 var counter = 0;
 var gameStage = 0;
 var h2;
-var clearImage = "images/stageclear.jpg";
-var wrongImage = "images/wrong.png";
+var clearImage = "images/yougotit.png";
+var wrongImage = "images/redwrong.png";
+var winImage = "images/youwin.png";
+var loseImage = "images/gameover.png";
 var buildingArray = [
 {
     name: "Pyramid",
@@ -16,8 +18,8 @@ var buildingArray = [
 },
 {
     name: "Taj Mahal",
-    image: "images/tajmahal.jpeg",
-    first: "images/tajmahal2.jpg",
+    image: "images/tajmahal2.jpg",
+    first: "images/tajmahal.jpeg",
     second: "images/tajmahal3.jpg",
     third: "images/tajmahal4.jpg"
 },
@@ -49,7 +51,7 @@ var createWinOutputPic = function(winPic){
     console.log("Display win pyramid");
     outputWinPic = document.createElement("img");
     outputWinPic.setAttribute("id","outputpic");
-    outputWinPic.style.border = "2px solid black"
+    // outputWinPic.style.border = "2px solid black";
     outputWinPic.style.height = "300px";
     outputWinPic.style.width = "600px";
     outputWinPic.style.margin = "20px";
@@ -61,8 +63,8 @@ var createOutputHint1 = function (image) {
     outputHint1Pic = document.createElement("img");
     outputHint1Pic.setAttribute("id","hint1");
     outputHint1Pic.style.border = "2px solid black";
-    outputHint1Pic.style.height = "100px";
-    outputHint1Pic.style.width = "200px";
+    outputHint1Pic.style.height = "150px";
+    outputHint1Pic.style.width = "300px";
     outputHint1Pic.setAttribute("src", image);
     document.querySelector(".containerleft").appendChild(outputHint1Pic);
 }
@@ -71,8 +73,8 @@ var createOutputHint2 = function (image) {
     outputHint2Pic = document.createElement("img");
     outputHint2Pic.setAttribute("id","hint2");
     outputHint2Pic.style.border = "2px solid black";
-    outputHint2Pic.style.height = "100px";
-    outputHint2Pic.style.width = "200px";
+    outputHint2Pic.style.height = "150px";
+    outputHint2Pic.style.width = "300px";
     outputHint2Pic.setAttribute("src", image);
     document.querySelector(".containercenter").appendChild(outputHint2Pic);
 }
@@ -81,8 +83,8 @@ var createOutputHint3 = function (image) {
     outputHint3Pic = document.createElement("img");
     outputHint3Pic.setAttribute("id","hint3");
     outputHint3Pic.style.border = "2px solid black";
-    outputHint3Pic.style.height = "100px";
-    outputHint3Pic.style.width = "200px";
+    outputHint3Pic.style.height = "150px";
+    outputHint3Pic.style.width = "300px";
     outputHint3Pic.setAttribute("src", image);
     document.querySelector(".containerright").appendChild(outputHint3Pic)
 }
@@ -123,8 +125,8 @@ var enter = function(event){
 }
 
 ////when player wins the stage
-var winStage = function(){
-    console.log("You win this stage");
+var clearStage = function(){
+    console.log("You cleared this stage");
     createWinOutputPic(clearImage);
 }
 
@@ -140,6 +142,24 @@ var clearWrong = function(){
     document.querySelector(".container").removeChild(clear);
 }
 
+var winGame = function(){
+    console.log("You win this game");
+    createWinOutputPic(winImage);
+}
+
+var loseGame = function(){
+    console.log("You lose this game");
+    hint2 = document.getElementById("hint2");
+    document.querySelector(".containercenter").removeChild(hint2);
+    hint1 = document.getElementById("hint1");
+    document.querySelector(".containerleft").removeChild(hint1);
+    hint3 = document.getElementById("hint3");
+    document.querySelector(".containerright").removeChild(hint3);
+    clear = document.getElementById("input");
+    document.querySelector(".containerbtm").removeChild(clear);
+}
+
+
 
 
 ////function for player to answer
@@ -154,7 +174,7 @@ var answer = function(userInput){
         gameStage ++;
         console.log("load next stage no.: " + gameStage);
         setTimeout(clearOutput, 1000);
-        setTimeout(winStage, 2000);
+        setTimeout(clearStage, 2000);
         setTimeout(clearOutput, 3000);
         setTimeout(startGame, 4000);
         setTimeout(function() {
@@ -172,7 +192,6 @@ var answer = function(userInput){
             setTimeout(function() {
                 createOutputHint1(buildingArray[gameStage].second);
             },3000);
-            // createOutputHint1(buildingArray[gameStage].second);
             counter += 1;
         }
         else if(counter === 1){
@@ -186,6 +205,11 @@ var answer = function(userInput){
         }
     }
     else{
+        setTimeout(loseGame,1000);
+        setTimeout(function(){
+            createWinOutputPic(loseImage);
+        },2000);
+        // createWinOutputPic(loseImage);
         console.log("You lose!")
         document.querySelector('#input').removeEventListener("keydown", enter);
     };
@@ -245,6 +269,8 @@ var startGame = function(){
         console.log("stage no.: " + gameStage);
     }
     else{
+        setTimeout(clearOutput, 1000);
+        setTimeout(winGame,1000);
         console.log("Youve won the game");
         document.querySelector('#input').removeEventListener("keydown", enter);
     }
