@@ -38,9 +38,12 @@ var buildingArray = [
 ////create h1 for the title of the game
 var title = function(){
     var h1 = document.createElement("h1");
+    h1.style.fontFamily = "cursive";
+    h1.style.fontWeight = "bold";
     h1.innerText = "Guess The Building";
     h2 = document.createElement("h2");
     h2.innerText = "Stage " + (gameStage+1);
+    h2.style.marginBottom = "20px"
     document.body.prepend(h2);
     document.body.prepend(h1);
 
@@ -53,8 +56,8 @@ var createWinOutputPic = function(winPic){
     outputWinPic = document.createElement("img");
     outputWinPic.setAttribute("id","outputpic");
     // outputWinPic.style.border = "2px solid black";
-    outputWinPic.style.height = "300px";
-    outputWinPic.style.width = "600px";
+    outputWinPic.style.height = "280px";
+    outputWinPic.style.width = "540px";
     outputWinPic.style.margin = "20px";
     outputWinPic.setAttribute("src", winPic);
     document.querySelector(".container").prepend(outputWinPic);
@@ -92,16 +95,16 @@ var createOutputHint3 = function (image) {
 }
 
 
-var createOutput = function(){
-    console.log("createOutput");
-    var output = document.createElement("p");
-    output.setAttribute("id","output");
-    output.style.border = "2px solid black";
-    output.style.height = "100px";
-    output.style.width = "300px";
-    output.innerText = "output2";
-    document.querySelector(".containerbtm").appendChild(output)
-}
+// var createOutput = function(){
+//     console.log("createOutput");
+//     var output = document.createElement("p");
+//     output.setAttribute("id","output");
+//     output.style.border = "2px solid black";
+//     output.style.height = "100px";
+//     output.style.width = "300px";
+//     output.innerText = "output2";
+//     document.querySelector(".containerbtm").appendChild(output)
+// }
 ////Create input(for user to input their answer);
 var createInput = function(){
     console.log("created inputBox");
@@ -136,38 +139,6 @@ var clearStage = function(){
     console.log("You cleared this stage");
     createWinOutputPic(clearImage);
 }
-
-// var stageSwitch = function(){
-//     createWinOutputPic(buildingArray[gameStage].image);
-//     if(stageCounter === 0){
-//         var hint2 = document.getElementById("hint2");
-//         hint2.style.visibility = "hidden";
-//         var clear = document.getElementById("input");
-//         clear.style.visibility = "hidden";
-//     }
-//     else if(stageCounter === 1){
-//         console.log("Stage counter " + stageCounter);
-//         var hint2 = document.getElementById("hint2");
-//         hint2.style.visibility = "hidden";
-//         var clear = document.getElementById("input");
-//         clear.style.visibility = "hidden";
-//         var hint1 = document.getElementById("hint1");
-//         hint1.style.visibility = "hidden";
-        // stageCounter ++;
-    // }
-//     else if(stageCounter === 2){
-//         console.log("Stage counter " + stageCounter);
-//         var hint2 = document.getElementById("hint2");
-//         hint2.style.visibility = "hidden";
-//         var clear = document.getElementById("input");
-//         clear.style.visibility = "hidden";
-//         var hint1 = document.getElementById("hint1");
-//         hint1.style.visibility = "hidden";
-//         var hint3 = document.getElementById("hint3");
-//         hint3.style.visibility = "hidden";
-
-//     }
-// }
 
 ////when player got the ans wrong
 var wrongStage = function(){
@@ -362,4 +333,4 @@ var startGame = function(){
 }
 
 title();
-startGame();
+setTimeout(startGame,1000);
