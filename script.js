@@ -2,6 +2,7 @@ console.log("Script loading");
 ////Global Variable
 // var outputPic;
 var counter = 0;
+var stageCounter = 0;
 var gameStage = 0;
 var h2;
 var clearImage = "images/yougotit.png";
@@ -57,6 +58,7 @@ var createWinOutputPic = function(winPic){
     outputWinPic.style.margin = "20px";
     outputWinPic.setAttribute("src", winPic);
     document.querySelector(".container").prepend(outputWinPic);
+
 }
 
 var createOutputHint1 = function (image) {
@@ -69,7 +71,7 @@ var createOutputHint1 = function (image) {
     document.querySelector(".containerleft").appendChild(outputHint1Pic);
 }
 
-var createOutputHint2 = function (image) {
+var createOutputHint2 = function (image, position) {
     outputHint2Pic = document.createElement("img");
     outputHint2Pic.setAttribute("id","hint2");
     outputHint2Pic.style.border = "2px solid black";
@@ -86,7 +88,7 @@ var createOutputHint3 = function (image) {
     outputHint3Pic.style.height = "150px";
     outputHint3Pic.style.width = "300px";
     outputHint3Pic.setAttribute("src", image);
-    document.querySelector(".containerright").appendChild(outputHint3Pic)
+    document.querySelector(".containerright").appendChild(outputHint3Pic);
 }
 
 
@@ -105,6 +107,7 @@ var createInput = function(){
     console.log("created inputBox");
     var inputBox = document.createElement("input");
     inputBox.setAttribute("id","input");
+    // inputBox.setAttribute("autofocus")
     inputBox.style.border = "2px solid black";
     inputBox.style.height = "100px";
     inputBox.style.width = "600px";
@@ -130,16 +133,87 @@ var clearStage = function(){
     createWinOutputPic(clearImage);
 }
 
+// var stageSwitch = function(){
+//     createWinOutputPic(buildingArray[gameStage].image);
+//     if(stageCounter === 0){
+//         var hint2 = document.getElementById("hint2");
+//         hint2.style.visibility = "hidden";
+//         var clear = document.getElementById("input");
+//         clear.style.visibility = "hidden";
+//     }
+//     else if(stageCounter === 1){
+//         console.log("Stage counter " + stageCounter);
+//         var hint2 = document.getElementById("hint2");
+//         hint2.style.visibility = "hidden";
+//         var clear = document.getElementById("input");
+//         clear.style.visibility = "hidden";
+//         var hint1 = document.getElementById("hint1");
+//         hint1.style.visibility = "hidden";
+        // stageCounter ++;
+    // }
+//     else if(stageCounter === 2){
+//         console.log("Stage counter " + stageCounter);
+//         var hint2 = document.getElementById("hint2");
+//         hint2.style.visibility = "hidden";
+//         var clear = document.getElementById("input");
+//         clear.style.visibility = "hidden";
+//         var hint1 = document.getElementById("hint1");
+//         hint1.style.visibility = "hidden";
+//         var hint3 = document.getElementById("hint3");
+//         hint3.style.visibility = "hidden";
+
+//     }
+// }
+
 ////when player got the ans wrong
 var wrongStage = function(){
     console.log("You got it wrong!");
     createWinOutputPic(wrongImage);
+    if(counter === 0){
+        console.log("We at wrongstage function in else if counter 0")
+        var hint2 = document.getElementById("hint2");
+        hint2.style.visibility = "hidden";
+        var clear = document.getElementById("input");
+        clear.style.visibility = "hidden";
+
+    }
+    else if(counter === 1){
+        console.log("We at wrongstage function in else if counter 1")
+        var hint1 = document.getElementById("hint1");
+        hint1.style.visibility = "hidden";
+        var hint2 = document.getElementById("hint2");
+        hint2.style.visibility = "hidden";
+        var clear = document.getElementById("input");
+        clear.style.visibility = "hidden";
+    }
+
 }
 
 ////remove wrong pic
 var clearWrong = function(){
-    var clear = document.getElementById("outputpic");
-    document.querySelector(".container").removeChild(clear);
+    document.querySelector(".row").style.visibility = "visible";
+    if(counter === 0){
+        console.log("clearing at counter 0");
+        var clearW = document.getElementById("outputpic");
+        document.querySelector(".container").removeChild(clearW);
+        var hint2 = document.getElementById("hint2");
+        hint2.style.visibility = "visible";
+        var clear = document.getElementById("input");
+        clear.style.visibility = "visible";
+        counter += 1;
+    }
+    else if(counter === 1){
+        console.log("clearing at counter 1")
+        var clearW = document.getElementById("outputpic");
+        document.querySelector(".container").removeChild(clearW);
+        var hint1 = document.getElementById("hint1");
+        hint1.style.visibility = "visible";
+        var hint2 = document.getElementById("hint2");
+        hint2.style.visibility = "visible";
+        var clear = document.getElementById("input");
+        clear.style.visibility = "visible";
+        counter += 1;
+    }
 }
 
 var winGame = function(){
@@ -159,7 +233,10 @@ var loseGame = function(){
     document.querySelector(".containerbtm").removeChild(clear);
 }
 
+// var switchStage = function(){
+//     createWinOutputPic(buildingArray[gameStage].image);
 
+// }
 
 
 ////function for player to answer
@@ -169,8 +246,12 @@ var answer = function(userInput){
     var clear = false;
     if (userInput === buildingArray[gameStage].name){
         console.log("You got it correct");
+        // stageSwitch();
         createWinOutputPic(buildingArray[gameStage].image);
+        // document.querySelector(".row").style.visibility = "hidden";
         // document.querySelector('#input').removeEventListener("keydown",firstEnter);
+        // stageCounter ++;
+        console.log("Stage counter " + stageCounter);
         gameStage ++;
         console.log("load next stage no.: " + gameStage);
         setTimeout(clearOutput, 1000);
@@ -180,9 +261,11 @@ var answer = function(userInput){
         setTimeout(function() {
                 counter = 0;
             },4000);
+        // setTimeout(function() {
+        //         stageCounter = 0;
+        //     },4000);
             // console.log("Win pic reset");
             console.log("Please start the next game!!!!!!!!!");
-
     }
     else if(counter < 2){
         if(counter === 0){
@@ -192,7 +275,6 @@ var answer = function(userInput){
             setTimeout(function() {
                 createOutputHint1(buildingArray[gameStage].second);
             },3000);
-            counter += 1;
         }
         else if(counter === 1){
             setTimeout(wrongStage, 1000);
@@ -201,7 +283,6 @@ var answer = function(userInput){
             setTimeout(function() {
                 createOutputHint3(buildingArray[gameStage].third);
             },3000);
-            counter += 1;
         }
     }
     else{
@@ -231,7 +312,6 @@ var clearOutput = function(){
         document.querySelector(".containercenter").removeChild(hint2);
         clear = document.getElementById("input");
         document.querySelector(".containerbtm").removeChild(clear);
-
     }
     else if(counter === 1){
         answerPic = document.getElementById("outputpic");
@@ -266,6 +346,7 @@ var startGame = function(){
         document.querySelector('#input').addEventListener("keydown",enter);
         // document.querySelector('#input').removeEventListener("keydown",enterFunction);
         h2.innerText = "Stage " + (gameStage+1);
+        // document.querySelector(".row").style.visibility = "visible";
         console.log("stage no.: " + gameStage);
     }
     else{
