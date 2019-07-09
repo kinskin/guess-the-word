@@ -13,8 +13,20 @@ h2{
 	text-align: center;
 }
 .container{
+	/*position: relative;*/
 	text-align: center;
 	background-color: transparent;
+}
+
+.containerbottom{
+	position: absolute;
+	bottom:0;
+	width:75%;
+	display:flex;
+	background-color: transparent;
+	flex-direction: row;
+	justify-content: center;
+
 }
 
 /*.testing {
