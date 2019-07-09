@@ -14,25 +14,39 @@ var winImage = "images/youwin.png";
 var loseImage = "images/gameover.png";
 var buildingArray = [
 {
-    name: "Pyramid",
+    name: "pyramid",
     image: "images/pyramid.jpg",
-    first: "images/pyramid2.jpg",
-    second:"images/pyramid3.jpg",
-    third:"images/pyramid4.jpg"
+    first: "images/pyramid2.png",
+    second:"images/pyramid3.png",
+    third:"images/pyramid4.png"
 },
 {
-    name: "Taj Mahal",
-    image: "images/tajmahal2.jpg",
-    first: "images/tajmahal.jpeg",
-    second: "images/tajmahal3.jpg",
-    third: "images/tajmahal4.jpg"
+    name: "tajmahal",
+    image: "images/tajmahal.jpg",
+    first: "images/tajmahal2.png",
+    second: "images/tajmahal3.png",
+    third: "images/tajmahal4.png"
 },
 {
-    name: "Petra",
+    name: "petra",
     image: "images/petra.jpg",
-    first: "images/petra2.jpg",
-    second: "images/petra3.jpg",
-    third: "images/petra4.jpg"
+    first: "images/petra2.png",
+    second: "images/petra3.png",
+    third: "images/petra4.png"
+},
+{
+    name: "towerbridge",
+    image: "images/towerbridge.jpeg",
+    first: "images/towerbridge2.png",
+    second: "images/towerbridge3.png",
+    third: "images/towerbridge4.png"
+},
+{
+    name: "parthenon",
+    image: "images/parthenon.jpg",
+    first: "images/parthenon2.png",
+    second: "images/parthenon3.png",
+    third: "images/parthenon4.png"
 }
 ];
 
@@ -43,6 +57,7 @@ var title = function(){
     var h1 = document.createElement("h1");
     h1.style.fontFamily = "cursive";
     h1.style.fontWeight = "bold";
+    h1.style.marginTop = "30px";
     h1.innerText = "Guess The Building";
     h2 = document.createElement("h2");
     h2.innerText = "Stage " + (gameStage+1);
@@ -70,6 +85,7 @@ var createWinOutputPic = function(winPic){
 var createOutputHint1 = function (image) {
     outputHint1Pic = document.createElement("img");
     outputHint1Pic.setAttribute("id","hint1");
+    outputHint1Pic.classList.add("hint");
     outputHint1Pic.style.border = "2px solid black";
     outputHint1Pic.style.height = "150px";
     outputHint1Pic.style.width = "300px";
@@ -80,6 +96,7 @@ var createOutputHint1 = function (image) {
 var createOutputHint2 = function (image) {
     outputHint2Pic = document.createElement("img");
     outputHint2Pic.setAttribute("id","hint2");
+    outputHint2Pic.classList.add("hint");
     outputHint2Pic.style.border = "2px solid black";
     outputHint2Pic.style.height = "150px";
     outputHint2Pic.style.width = "300px";
@@ -90,6 +107,7 @@ var createOutputHint2 = function (image) {
 var createOutputHint3 = function (image) {
     outputHint3Pic = document.createElement("img");
     outputHint3Pic.setAttribute("id","hint3");
+    outputHint3Pic.classList.add("hint");
     outputHint3Pic.style.border = "2px solid black";
     outputHint3Pic.style.height = "150px";
     outputHint3Pic.style.width = "300px";
@@ -112,6 +130,7 @@ var createOutput = function(){
     output.style.background =  "white";
     output.style.fontSize = "30px";
     output.style.textAlign = "center";
+    output.style.padding = "14px";
     output.innerText = "Time left: "
     document.querySelector(".containerbright").appendChild(output)
 }
@@ -122,6 +141,7 @@ var createInput = function(){
     console.log("created inputBox");
     var inputBox = document.createElement("input");
     inputBox.setAttribute("id","input");
+    inputBox.setAttribute("placeholder","Your Answer");
     // inputBox.setAttribute("autofocus")
     inputBox.style.border = "1px solid black";
     inputBox.style.borderRadius = "50%";
@@ -131,7 +151,6 @@ var createInput = function(){
     inputBox.style.margin = "20px";
     inputBox.style.fontSize = "30px";
     inputBox.style.textAlign = "center";
-    inputBox.textContent = "Your Answer";
     // document.querySelector(".containerbtm").appendChild(inputBox)
     document.querySelector(".containerbleft").appendChild(inputBox)
 }
@@ -221,12 +240,21 @@ var loseGame = function(){
     document.querySelector(".containerbleft").removeChild(clear);
 }
 
+var shakeAnimation = function(){
+    if (countdown < 6){
+        var outputShake = document.body
+        outputShake.style.animation = "shake 0.1s";
+        outputShake.style.animationIterationCount = "infinite";
+    }
+}
+
 var timer = function(){
     if (countdown >0){
         countdown -= 1;
         var time = document.getElementById("output");
-        //time.innerText = "Time left: "+countdown;
+        time.innerText = "Time left: "+countdown;
         console.log("Time left: ", countdown);
+        // shakeAnimation();
     }
     else if(countdown === 0){
         userLousy = true;
@@ -244,11 +272,9 @@ var timer = function(){
         setTimeout(function(){
             createWinOutputPic(loseImage);
         },1000);
-
     }
     console.log("Lose?: ", userLousy);
 }
-//var countdownTimer = setInterval(timer ,1000);
 
 
 ////function for player to answer
@@ -256,11 +282,15 @@ var answer = function(userInput){
     console.log("Counter: " + counter);
     // cleared false
     var clear = false;
-    if (userInput === buildingArray[gameStage].name){
+    if (userInput.toLowerCase() === buildingArray[gameStage].name){
         console.log("You got it correct");
         // stageSwitch();
         createWinOutputPic(buildingArray[gameStage].image);
         document.querySelector(".containerbright").removeChild(output);
+        var hints = document.querySelectorAll(".hint");
+        for(let i = 0; i < hints.length; i++){
+            hints[i].style.visibility = "hidden";
+        }
         gameStage ++;
         clearInterval(countdownTimer);
         console.log("load next stage no.: " + gameStage);
@@ -283,10 +313,10 @@ var answer = function(userInput){
             //settimeout
             setTimeout(function() {
                 createOutputHint1(buildingArray[gameStage].second);
-            },3000);
+            },2000);
             setTimeout(function() {
-                countdown = 10;
-            },3000);
+                countdown += 5;
+            },2000);
         }
         else if(counter === 1){
             setTimeout(wrongStage, 1000);
@@ -294,10 +324,10 @@ var answer = function(userInput){
             //settimeout
             setTimeout(function() {
                 createOutputHint3(buildingArray[gameStage].third);
-            },3000);
+            },2000);
             setTimeout(function() {
-                countdown = 10;
-            },3000);
+                countdown += 5;
+            },2000);
         }
     }
     // when counter === 3, player lose
@@ -305,10 +335,10 @@ var answer = function(userInput){
         clearInterval(countdownTimer);
         setTimeout(loseGame,1000);
         setTimeout(function(){
-            createWinOutputPic(loseImage);
-        },2000);
+            document.querySelector(".containerbright").removeChild(output);
+        },1000);
         setTimeout(function(){
-            document.getElementById("output").removeChild();
+            createWinOutputPic(loseImage);
         },2000);
         // createWinOutputPic(loseImage);
         console.log("You lose!")
@@ -369,6 +399,7 @@ var startGame = function(){
         h2.innerText = "Stage " + (gameStage+1);
         console.log("stage no.: " + gameStage);
         countdownTimer = setInterval(timer, 1000);
+
     }
     else{
         setTimeout(clearOutput, 1000);
