@@ -21,20 +21,6 @@ var buildingArray = [
     third:"images/pyramid4.png"
 },
 {
-    name: "tajmahal",
-    image: "images/tajmahal.jpg",
-    first: "images/tajmahal2.png",
-    second: "images/tajmahal3.png",
-    third: "images/tajmahal4.png"
-},
-{
-    name: "petra",
-    image: "images/petra.jpg",
-    first: "images/petra2.png",
-    second: "images/petra3.png",
-    third: "images/petra4.png"
-},
-{
     name: "towerbridge",
     image: "images/towerbridge.jpeg",
     first: "images/towerbridge2.png",
@@ -47,6 +33,20 @@ var buildingArray = [
     first: "images/parthenon2.png",
     second: "images/parthenon3.png",
     third: "images/parthenon4.png"
+},
+{
+    name: "tajmahal",
+    image: "images/tajmahal.jpg",
+    first: "images/tajmahal2.png",
+    second: "images/tajmahal3.png",
+    third: "images/tajmahal4.png"
+},
+{
+    name: "petra",
+    image: "images/petra.jpg",
+    first: "images/petra2.png",
+    second: "images/petra3.png",
+    third: "images/petra4.png"
 }
 ];
 
@@ -58,7 +58,7 @@ var title = function(){
     h1.style.fontFamily = "cursive";
     h1.style.fontWeight = "bold";
     h1.style.marginTop = "30px";
-    h1.innerText = "Guess The Building";
+    h1.innerText = "Guess The Picture";
     h2 = document.createElement("h2");
     h2.innerText = "Stage " + (gameStage+1);
     h2.style.marginBottom = "20px"
@@ -260,6 +260,7 @@ var timer = function(){
         userLousy = true;
         console.log("countdown timer: ", countdownTimer)
         clearInterval(countdownTimer);
+        document.querySelector('#input').removeEventListener("keydown", enter);
         setTimeout(loseGame,1000);
         setTimeout(function(){
             var clear = document.getElementById("input")
@@ -302,14 +303,14 @@ var answer = function(userInput){
                 counter = 0;
             },4000);
         setTimeout(function() {
-                countdown = 10;
+                countdown = 11;
             },4000);
             console.log("Please start the next game!!!!!!!!!");
     }
     else if(counter < 2){
         if(counter === 0){
-            setTimeout(wrongStage,1000);
-            setTimeout(clearWrong,2000);
+            setTimeout(wrongStage,500);
+            setTimeout(clearWrong,1000);
             //settimeout
             setTimeout(function() {
                 createOutputHint1(buildingArray[gameStage].second);
@@ -319,8 +320,8 @@ var answer = function(userInput){
             },2000);
         }
         else if(counter === 1){
-            setTimeout(wrongStage, 1000);
-            setTimeout(clearWrong,2000);
+            setTimeout(wrongStage, 500);
+            setTimeout(clearWrong,1000);
             //settimeout
             setTimeout(function() {
                 createOutputHint3(buildingArray[gameStage].third);
@@ -399,7 +400,6 @@ var startGame = function(){
         h2.innerText = "Stage " + (gameStage+1);
         console.log("stage no.: " + gameStage);
         countdownTimer = setInterval(timer, 1000);
-
     }
     else{
         setTimeout(clearOutput, 1000);
@@ -408,6 +408,10 @@ var startGame = function(){
         document.querySelector('#input').removeEventListener("keydown", enter);
     }
 }
-
+// document.addEventListener("DOMContentLoaded", function(event){
+//     var btn = document.createElement("button");
+//     btn.innerHTML = "Start game";
+//     btn.addEventListener("click", startGame);
+//     document.body.appendChild(btn);
 title();
 setTimeout(startGame,1000);
